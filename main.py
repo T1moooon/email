@@ -5,12 +5,14 @@ from dotenv import load_dotenv
 load_dotenv()
 login = os.getenv("LOGIN")
 password = os.getenv("PASSWORD")
+email_admin = "t1moooong@yandex.ru"
+email_friend = "t1moooong@gmail.com"
 name_site = "https://dvmn.org/referrals/QrwNiRSbhADbrc4ck1pO0mapjWGwcixzLapMOqaK/"
 name_friend = "Александр"
 name_admin = "Тимон"
 letter = """\
-From: t1moooong@yandex.ru
-To: t1moooong@gmail.com
+From: {ea}
+To: {ef}
 Subject: Приглашение!
 Content-Type: text/plain; charset="UTF-8";
 
@@ -29,10 +31,10 @@ Content-Type: text/plain; charset="UTF-8";
 Все проекты — они же решение наших задачек — можно разместить на твоём GitHub. Работодатели такое оценят. 
 
 Регистрируйся → {s}  
-На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.""".format(s = name_site, u = name_admin, f = name_friend)
+На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.""".format(ef = email_friend, ea = email_admin, s = name_site, u = name_admin, f = name_friend)
 letter = letter.encode("UTF-8")
 
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
 server.login(login, password)
-server.sendmail('t1moooong@yandex.ru', 't1moooong@gmail.com', letter)
+server.sendmail(email_admin, email_friend, letter)
 server.quit()
